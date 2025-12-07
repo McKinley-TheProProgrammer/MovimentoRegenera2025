@@ -147,11 +147,13 @@ script = ExtResource("8_sg0lm")
 questions_in_order = [NodePath("QuestionUsername"), NodePath("QuestionObjective"), NodePath("QuestionPrompt")]
 
 [node name="QuestionUsername" parent="Questions" instance=ExtResource("7_b55n1")]
-offset_top = -284.0
-offset_bottom = -249.0
+offset_top = 358.0
+offset_bottom = 393.0
 question = "Qual é o seu nome?"
 
 [node name="QuestionPrompt" parent="Questions" instance=ExtResource("7_b55n1")]
+offset_top = -276.0
+offset_bottom = -241.0
 
 [node name="QuestionObjective" parent="Questions" instance=ExtResource("7_b55n1")]
 offset_top = -284.0

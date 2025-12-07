@@ -10,12 +10,15 @@ func _ready() -> void:
 	for question in questions_in_order:
 		question.user_prompt.text_submitted.connect(next_question)
 
-func next_question() -> void:
+
+func next_question(new_Text : String) -> void:
 	var initial_pos = current_question.global_position
 		
 	var move_question_tween = create_tween()
-	move_question_tween.tween_property(current_question,"global_position",Vector2(0,-500),.5)
+	move_question_tween.tween_property(current_question,"global_position",Vector2(current_question.global_position.x,-500),.5)
 	await move_question_tween.finished
+	move_question_tween.stop()
+	
 	currentIndex += 1
 	current_question = questions_in_order[currentIndex]
 	move_question_tween.tween_property(current_question,"global_position",Vector2.ZERO,.5)
