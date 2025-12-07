@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://cbtvv8bpdtguu"]
+
+[ext_resource type="Script" uid="uid://dghk15xkackfi" path="res://scripts/game_resource.gd" id="1_jpsyx"]
+
+[node name="MainCurrency" type="Node"]
+script = ExtResource("1_jpsyx")

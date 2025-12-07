@@ -1,0 +1,70 @@
+[gd_scene load_steps=5 format=3 uid="uid://bhc7b7k8dacxn"]
+
+[ext_resource type="PackedScene" uid="uid://coaveifkl32hx" path="res://scenes/clicker_button.tscn" id="1_7qcpf"]
+[ext_resource type="Theme" uid="uid://rd2fdjf3ycvn" path="res://themes/value_font.tres" id="1_cuihm"]
+[ext_resource type="PackedScene" uid="uid://cbtvv8bpdtguu" path="res://scenes/clicker_resource.tscn" id="2_6nr6s"]
+[ext_resource type="Script" uid="uid://ksybbe4lgu85" path="res://scripts/game_resource_display.gd" id="2_x0nuc"]
+
+[node name="LevelClicker" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="GameMenu" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ProductDisplay" type="RichTextLabel" parent="GameMenu" node_paths=PackedStringArray("resource_to_display")]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -191.5
+offset_right = 191.5
+offset_bottom = 109.0
+grow_horizontal = 2
+theme = ExtResource("1_cuihm")
+bbcode_enabled = true
+text = "VALOR"
+scroll_active = false
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("2_x0nuc")
+resource_to_display = NodePath("../../ProductCurrency")
+
+[node name="MoneyDisplay" type="RichTextLabel" parent="GameMenu" node_paths=PackedStringArray("resource_to_display")]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -191.5
+offset_top = 133.0
+offset_right = 191.5
+offset_bottom = 242.0
+grow_horizontal = 2
+theme = ExtResource("1_cuihm")
+bbcode_enabled = true
+text = "Dinheiro"
+scroll_active = false
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("2_x0nuc")
+resource_to_display = NodePath("../../MoneyCurrency")
+prefix = "$"
+
+[node name="ClickerButton" parent="GameMenu" node_paths=PackedStringArray("resource_to_increase") instance=ExtResource("1_7qcpf")]
+layout_mode = 1
+offset_top = 39.0
+offset_bottom = 39.0
+resource_to_increase = NodePath("../../ProductCurrency")
+
+[node name="ProductCurrency" parent="." instance=ExtResource("2_6nr6s")]
+
+[node name="MoneyCurrency" parent="." instance=ExtResource("2_6nr6s")]
