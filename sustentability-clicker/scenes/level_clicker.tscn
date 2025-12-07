@@ -1,11 +1,14 @@
-[gd_scene load_steps=14 format=3 uid="uid://bhc7b7k8dacxn"]
+[gd_scene load_steps=17 format=3 uid="uid://bhc7b7k8dacxn"]
 
-[ext_resource type="Script" uid="uid://dnrp6qitit1tq" path="res://scenes/currency_manager.gd" id="1_3rp5t"]
+[ext_resource type="Script" uid="uid://dnrp6qitit1tq" path="res://scripts/currency_manager.gd" id="1_3rp5t"]
 [ext_resource type="PackedScene" uid="uid://coaveifkl32hx" path="res://scenes/clicker_button.tscn" id="1_7qcpf"]
 [ext_resource type="Theme" uid="uid://rd2fdjf3ycvn" path="res://themes/value_font.tres" id="1_cuihm"]
 [ext_resource type="PackedScene" uid="uid://cbtvv8bpdtguu" path="res://scenes/clicker_resource.tscn" id="2_6nr6s"]
 [ext_resource type="Shader" uid="uid://dbkrt3hgf0nwm" path="res://shaders/scrolling_background.gdshader" id="2_f0s87"]
 [ext_resource type="Script" uid="uid://ksybbe4lgu85" path="res://scripts/game_resource_display.gd" id="2_x0nuc"]
+[ext_resource type="PackedScene" uid="uid://cvk2plu68b018" path="res://scenes/question_prompt.tscn" id="7_b55n1"]
+[ext_resource type="Script" uid="uid://b6k2o6vv6l1bc" path="res://scenes/question_handler.gd" id="8_sg0lm"]
+[ext_resource type="Texture2D" uid="uid://dp3u6786yowcn" path="res://arts/EnterGreen_Logo.png" id="9_srlw0"]
 
 [sub_resource type="Gradient" id="Gradient_f0s87"]
 offsets = PackedFloat32Array(0.43076923)
@@ -47,7 +50,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_3rp5t")
 
-[node name="GameMenu" type="Control" parent="."]
+[node name="BG" type="Control" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -55,15 +58,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="BG" type="Control" parent="GameMenu"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="BG_Image" type="TextureRect" parent="GameMenu/BG"]
+[node name="BG_Image" type="TextureRect" parent="BG"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -72,7 +67,7 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = SubResource("GradientTexture1D_b55n1")
 
-[node name="ScrollingTexture" type="TextureRect" parent="GameMenu/BG"]
+[node name="ScrollingTexture" type="TextureRect" parent="BG"]
 material = SubResource("ShaderMaterial_srlw0")
 layout_mode = 1
 anchors_preset = 15
@@ -83,6 +78,16 @@ offset_bottom = 24.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = SubResource("GradientTexture2D_kcwkh")
+
+[node name="GameMenu" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 693.0
+offset_bottom = 693.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="ProductDisplay" type="RichTextLabel" parent="GameMenu" node_paths=PackedStringArray("resource_to_display")]
 layout_mode = 1
@@ -136,3 +141,34 @@ resources_to_increase = [NodePath("../../Currencies/ProductCurrency")]
 
 [node name="MoneyCurrency" parent="." instance=ExtResource("2_6nr6s")]
 value = 1000.0
+
+[node name="Questions" type="Node" parent="." node_paths=PackedStringArray("questions_in_order")]
+script = ExtResource("8_sg0lm")
+questions_in_order = [NodePath("QuestionUsername"), NodePath("QuestionObjective"), NodePath("QuestionPrompt")]
+
+[node name="QuestionUsername" parent="Questions" instance=ExtResource("7_b55n1")]
+offset_top = -284.0
+offset_bottom = -249.0
+question = "Qual é o seu nome?"
+
+[node name="QuestionPrompt" parent="Questions" instance=ExtResource("7_b55n1")]
+
+[node name="QuestionObjective" parent="Questions" instance=ExtResource("7_b55n1")]
+offset_top = -284.0
+offset_bottom = -249.0
+question_id = &"ObjetivosEmpresa"
+question = "Quais são os Objetivos de sua Empresa?"
+placeholder_prompt = "Breve descrição"
+
+[node name="Logo" type="TextureRect" parent="."]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -104.0
+offset_right = 186.93391
+grow_vertical = 0
+texture = ExtResource("9_srlw0")
+expand_mode = 1
+stretch_mode = 4

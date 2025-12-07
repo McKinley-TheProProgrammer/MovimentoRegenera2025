@@ -1,0 +1,54 @@
+[gd_scene load_steps=3 format=3 uid="uid://cvk2plu68b018"]
+
+[ext_resource type="Script" uid="uid://f5ty4f4ry31y" path="res://scenes/question_prompt.gd" id="1_76exk"]
+[ext_resource type="Theme" uid="uid://rd2fdjf3ycvn" path="res://themes/value_font.tres" id="2_gxck2"]
+
+[node name="QuestionPrompt" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 207.0
+offset_top = 411.0
+offset_right = 957.0
+offset_bottom = 446.0
+script = ExtResource("1_76exk")
+question_id = &"NomeEmpresa"
+question = "Qual é o nome da sua empresa?"
+placeholder_prompt = "Nome da Empresa"
+
+[node name="QuestionText" type="RichTextLabel" parent="."]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = -192.5
+offset_bottom = -67.5
+grow_horizontal = 2
+theme = ExtResource("2_gxck2")
+theme_override_colors/default_color = Color(0, 0.013499923, 0.27, 1)
+theme_override_colors/font_outline_color = Color(1, 0.44, 0.8133333, 1)
+theme_override_constants/outline_size = 15
+theme_override_font_sizes/normal_font_size = 39
+theme_override_font_sizes/bold_font_size = 54
+theme_override_font_sizes/bold_italics_font_size = 54
+theme_override_font_sizes/italics_font_size = 54
+theme_override_font_sizes/mono_font_size = 54
+bbcode_enabled = true
+text = "Qual é o nome da sua empresa?"
+fit_content = true
+scroll_active = false
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="UserPrompt" type="LineEdit" parent="."]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -5.5
+offset_bottom = 76.5
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_gxck2")
+placeholder_text = "Nome da Empresa"
+
+[connection signal="text_submitted" from="UserPrompt" to="." method="_on_user_prompt_text_submitted"]

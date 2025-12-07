@@ -1,7 +1,10 @@
 class_name ClickerButton extends Control
 
 signal on_clicked
+
 @export var resources_to_increase : Array[GameResource]
+
+@onready var texture_button: TextureButton = $TextureButton
 
 var current_increase_value = 1;
 
