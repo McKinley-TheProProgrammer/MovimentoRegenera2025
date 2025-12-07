@@ -1,9 +1,42 @@
-[gd_scene load_steps=5 format=3 uid="uid://bhc7b7k8dacxn"]
+[gd_scene load_steps=14 format=3 uid="uid://bhc7b7k8dacxn"]
 
+[ext_resource type="Script" uid="uid://dnrp6qitit1tq" path="res://scenes/currency_manager.gd" id="1_3rp5t"]
 [ext_resource type="PackedScene" uid="uid://coaveifkl32hx" path="res://scenes/clicker_button.tscn" id="1_7qcpf"]
 [ext_resource type="Theme" uid="uid://rd2fdjf3ycvn" path="res://themes/value_font.tres" id="1_cuihm"]
 [ext_resource type="PackedScene" uid="uid://cbtvv8bpdtguu" path="res://scenes/clicker_resource.tscn" id="2_6nr6s"]
+[ext_resource type="Shader" uid="uid://dbkrt3hgf0nwm" path="res://shaders/scrolling_background.gdshader" id="2_f0s87"]
 [ext_resource type="Script" uid="uid://ksybbe4lgu85" path="res://scripts/game_resource_display.gd" id="2_x0nuc"]
+
+[sub_resource type="Gradient" id="Gradient_f0s87"]
+offsets = PackedFloat32Array(0.43076923)
+colors = PackedColorArray(0, 0.8, 0.31764707, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_b55n1"]
+gradient = SubResource("Gradient_f0s87")
+
+[sub_resource type="Gradient" id="Gradient_b55n1"]
+colors = PackedColorArray(0, 0, 0, 1, 0.99607843, 1, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_sg0lm"]
+gradient = SubResource("Gradient_b55n1")
+use_hdr = true
+fill_from = Vector2(0, 0.1)
+fill_to = Vector2(0, 1)
+metadata/_snap_enabled = true
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_srlw0"]
+shader = ExtResource("2_f0s87")
+shader_parameter/gradient = SubResource("GradientTexture2D_sg0lm")
+shader_parameter/circle_color = Color(0.63, 1, 0.7965, 1)
+shader_parameter/circle_multiplier = 10.0
+shader_parameter/speed = 1.0
+shader_parameter/direction = Vector2(1, 1)
+shader_parameter/rotation = Transform2D(1, -1, 1, 1, 0, 0)
+
+[sub_resource type="Gradient" id="Gradient_a1art"]
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_kcwkh"]
+gradient = SubResource("Gradient_a1art")
 
 [node name="LevelClicker" type="Control"]
 layout_mode = 3
@@ -12,6 +45,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_3rp5t")
 
 [node name="GameMenu" type="Control" parent="."]
 layout_mode = 1
@@ -20,6 +54,35 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="BG" type="Control" parent="GameMenu"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="BG_Image" type="TextureRect" parent="GameMenu/BG"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("GradientTexture1D_b55n1")
+
+[node name="ScrollingTexture" type="TextureRect" parent="GameMenu/BG"]
+material = SubResource("ShaderMaterial_srlw0")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 24.0
+offset_bottom = 24.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("GradientTexture2D_kcwkh")
 
 [node name="ProductDisplay" type="RichTextLabel" parent="GameMenu" node_paths=PackedStringArray("resource_to_display")]
 layout_mode = 1
@@ -56,19 +119,20 @@ scroll_active = false
 horizontal_alignment = 1
 vertical_alignment = 1
 script = ExtResource("2_x0nuc")
-resource_to_display = NodePath("../../Currencies/MoneyCurrency")
+resource_to_display = NodePath("../../MoneyCurrency")
 prefix = "$"
 
 [node name="ClickerButton" parent="GameMenu" node_paths=PackedStringArray("resources_to_increase") instance=ExtResource("1_7qcpf")]
 layout_mode = 1
 offset_top = 39.0
 offset_bottom = 39.0
-resources_to_increase = [NodePath("../../Currencies/ProductCurrency"), NodePath("../../Currencies/MoneyCurrency")]
+resources_to_increase = [NodePath("../../Currencies/ProductCurrency")]
 
 [node name="Currencies" type="Node" parent="."]
 
 [node name="ProductCurrency" parent="Currencies" instance=ExtResource("2_6nr6s")]
 
-[node name="MoneyCurrency" parent="Currencies" instance=ExtResource("2_6nr6s")]
-
 [node name="AutomatedIncrease" type="Node" parent="."]
+
+[node name="MoneyCurrency" parent="." instance=ExtResource("2_6nr6s")]
+value = 1000.0

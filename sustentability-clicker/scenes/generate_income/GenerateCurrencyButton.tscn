@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=3 uid="uid://d2at8q5htkoji"]
+
+[ext_resource type="PackedScene" uid="uid://coaveifkl32hx" path="res://scenes/clicker_button.tscn" id="1_vfx7d"]
+
+[node name="GenerateCurrencyButton" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ClickerButton" parent="." instance=ExtResource("1_vfx7d")]
+layout_mode = 1
