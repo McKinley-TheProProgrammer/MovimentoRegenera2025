@@ -1,9 +1,12 @@
 class_name ClickerButton extends Control
 
 signal on_clicked
-@export var resource_to_increase : GameResource
+@export var resources_to_increase : Array[GameResource]
+
+var current_increase_value = 1;
 
 func _on_texture_button_pressed() -> void:
-	resource_to_increase.increase(1)
+	for res in resources_to_increase:
+		res.increase(current_increase_value)
 	on_clicked.emit()
 	

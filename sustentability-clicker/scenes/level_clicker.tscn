@@ -37,7 +37,7 @@ scroll_active = false
 horizontal_alignment = 1
 vertical_alignment = 1
 script = ExtResource("2_x0nuc")
-resource_to_display = NodePath("../../ProductCurrency")
+resource_to_display = NodePath("../../Currencies/ProductCurrency")
 
 [node name="MoneyDisplay" type="RichTextLabel" parent="GameMenu" node_paths=PackedStringArray("resource_to_display")]
 layout_mode = 1
@@ -56,15 +56,19 @@ scroll_active = false
 horizontal_alignment = 1
 vertical_alignment = 1
 script = ExtResource("2_x0nuc")
-resource_to_display = NodePath("../../MoneyCurrency")
+resource_to_display = NodePath("../../Currencies/MoneyCurrency")
 prefix = "$"
 
-[node name="ClickerButton" parent="GameMenu" node_paths=PackedStringArray("resource_to_increase") instance=ExtResource("1_7qcpf")]
+[node name="ClickerButton" parent="GameMenu" node_paths=PackedStringArray("resources_to_increase") instance=ExtResource("1_7qcpf")]
 layout_mode = 1
 offset_top = 39.0
 offset_bottom = 39.0
-resource_to_increase = NodePath("../../ProductCurrency")
+resources_to_increase = [NodePath("../../Currencies/ProductCurrency"), NodePath("../../Currencies/MoneyCurrency")]
 
-[node name="ProductCurrency" parent="." instance=ExtResource("2_6nr6s")]
+[node name="Currencies" type="Node" parent="."]
 
-[node name="MoneyCurrency" parent="." instance=ExtResource("2_6nr6s")]
+[node name="ProductCurrency" parent="Currencies" instance=ExtResource("2_6nr6s")]
+
+[node name="MoneyCurrency" parent="Currencies" instance=ExtResource("2_6nr6s")]
+
+[node name="AutomatedIncrease" type="Node" parent="."]
